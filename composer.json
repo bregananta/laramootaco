@@ -1,5 +1,5 @@
 {
-    "name": "Bregananta/Laramootaco",
+    "name": "bregananta/laramootaco",
     "type": "library",
     "description": "Laravel package to use moota.co API",
     "keywords": [
