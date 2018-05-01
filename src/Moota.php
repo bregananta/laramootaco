@@ -10,29 +10,33 @@ class Moota
 
     public function __construct()
     {
-        if ( config('moota.api_key') == '' ) {
-            throw new MootaConfigEmptyException(null, 'api_key');
-        }
+    }
 
-        if ( config('moota.sdk_mode') == '' ) {
-            throw new MootaConfigEmptyException(null, 'sdk_mode');
-        }
+    public function init()
+    {
+	    if ( config('moota.api_key') == '' ) {
+		    throw new MootaConfigEmptyException(null, 'api_key');
+	    }
 
-        if ( config('moota.api_timeout') == '' ) {
-            throw new MootaConfigEmptyException(null, 'api_timeout');
-        }
+	    if ( config('moota.sdk_mode') == '' ) {
+		    throw new MootaConfigEmptyException(null, 'sdk_mode');
+	    }
 
-        $apiKey = config('moota.api_key');
-        $base_uri = (config('moota.sdk_mode')=='production') ? config('moota.live_url') : config('moota.sandbox_url');
+	    if ( config('moota.api_timeout') == '' ) {
+		    throw new MootaConfigEmptyException(null, 'api_timeout');
+	    }
 
-        $this->httpClient = new Client(array(
-            'base_uri' => $base_uri . '/api/v1/',
-            'timeout'  => config('moota.api_timeout'),
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => "Bearer {$apiKey}",
-            ],
-        ));
+	    $apiKey = config('moota.api_key');
+	    $base_uri = (config('moota.sdk_mode')=='production') ? config('moota.live_url') : config('moota.sandbox_url');
+
+	    $this->httpClient = new Client(array(
+		    'base_uri' => $base_uri . '/api/v1/',
+		    'timeout'  => config('moota.api_timeout'),
+		    'headers' => [
+			    'Accept' => 'application/json',
+			    'Authorization' => "Bearer {$apiKey}",
+		    ],
+	    ));
     }
 
     public function getEndpoint($uri, $queries = null)
